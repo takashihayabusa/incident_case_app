@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+    <style>
+        body {
+            font-family: "Hiragino Kaku Gothic ProN", sans-serif;
+            background: #f4f8fb;
+            padding: 20px;
+        }
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        a.btn-back {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #1f6fd6;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>案件詳細</h1>
+
+<div class="card">
+    <h2>{{ post.title }}</h2>
+    <p><strong>重要度:</strong> {{ post.get_priority_display }}</p>
+    <p><strong>期限:</strong> {{ post.duedate }}</p>
+    <p><strong>内容:</strong><br>{{ post.memo|linebreaksbr }}</p>
+
+    {% if post.files.all %}
+        <h3>添付ファイル</h3>
+        <ul>
+            {% for f in post.files.all %}
+                <li>
+                    <a href="{{ f.file.url }}" target="_blank">{{ f.file.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<a href="{% url 'case:post-list' %}" class="btn-back">← 一覧へ戻る</a>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>事案管理ダッシュボード</title>
+
+    <style>
+        body {
+            font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+            background: #f4f8fb;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #1f6fd6;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .stat {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1f6fd6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            background: #1f6fd6;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn-create {
+            display: inline-block;
+            background: #1f6fd6;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <a href="{% url 'case:post-list' %}" class="btn-create" style="background:#2c3e50;">
+            ← 全件表示へ
+        </a>
+    </div>
+    
+
+<h1>事案管理ダッシュボード</h1>
+
+<!-- 登録件数 -->
+<div class="card">
+    <h2>登録件数</h2>
+    <div class="stat">{{ total_cases }}</div>
+</div>
+
+<!-- 店舗別ベスト5 -->
+<div class="card">
+    <h2>店舗別ベスト5</h2>
+
+    <table>
+        <tr>
+            <th>順位</th>
+            <th>店舗名</th>
+            <th>件数</th>
+        </tr>
+
+        {% for s in store_best %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ s.store_name }}</td>
+            <td>{{ s.count }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">データがありません</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<!-- 新規作成ボタン -->
+<div class="card">
+    <a href="{% url 'case:post-create' %}" class="btn-create">＋ 新規作成</a>
+</div>
+
+</body>
+</html>

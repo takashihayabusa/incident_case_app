@@ -1,0 +1,21 @@
+<h1>📝 新規事案登録</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <div style="color:red;">
+            <strong>入力エラーがあります</strong>
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    {{ form.as_p }}
+
+    <button type="submit">登録する</button>
+</form>
+
+<p>
+    <a href="{% url 'case:home' %}">← 戻る</a>
+</p>
+
