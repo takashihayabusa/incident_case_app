@@ -14,7 +14,12 @@ SECRET_KEY = "django-insecure-@zp(!@9*#q$692$^*+48#z#+blr4_xwzavh92j%yj2pzmx2oz4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'itigo1151.pythonanywhere.com',
+]
+
 
 
 # Application definition
@@ -106,11 +111,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
+
 
 # Default primary key fielzd type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR /'media/'
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 

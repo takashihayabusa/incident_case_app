@@ -1,21 +1,18 @@
-<h1>📝 新規事案登録</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新規作成</title>
+</head>
+<body>
+    <h1>新規作成</h1>
 
-<form method="post">
-    {% csrf_token %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">保存</button>
+    </form>
 
-    {% if form.errors %}
-        <div style="color:red;">
-            <strong>入力エラーがあります</strong>
-            {{ form.errors }}
-        </div>
-    {% endif %}
-
-    {{ form.as_p }}
-
-    <button type="submit">登録する</button>
-</form>
-
-<p>
-    <a href="{% url 'case:home' %}">← 戻る</a>
-</p>
-
+    <a href="{% url 'case:home' %}">戻る</a>
+</body>
+</html>
