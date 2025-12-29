@@ -3,16 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>新規作成</title>
+
+    <style>
+        body {
+            font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+            background: #f4f8fb;
+            padding: 20px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 700px;
+            margin: auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        h1 {
+            color: #1f6fd6;
+            margin-top: 0;
+        }
+        label {
+            font-weight: bold;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 16px;
+            background: #1f6fd6;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
+
+<div class="card">
     <h1>新規作成</h1>
 
+    <!-- ★ enctype 必須 ★ -->
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+
+        <!-- 事案本体 -->
+        {{ post_form.as_p }}
+
+        <!-- 添付ファイル -->
+        <p>
+            {{ file_form.files.label_tag }}<br>
+            {{ file_form.files }}
+        </p>
+
         <button type="submit">保存</button>
     </form>
+</div>
 
-    <a href="{% url 'case:home' %}">戻る</a>
 </body>
 </html>
