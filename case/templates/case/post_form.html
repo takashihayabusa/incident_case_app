@@ -1,62 +1,97 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>新規作成</title>
+  <meta charset="UTF-8">
+  <title>事案 新規作成</title>
+  <style>
+    body {
+      font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+      background: #f4f8fb;
+      padding: 20px;
+    }
 
-    <style>
-        body {
-            font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
-            background: #f4f8fb;
-            padding: 20px;
-        }
-        .card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            max-width: 700px;
-            margin: auto;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-        }
-        h1 {
-            color: #1f6fd6;
-            margin-top: 0;
-        }
-        label {
-            font-weight: bold;
-        }
-        button {
-            margin-top: 20px;
-            padding: 10px 16px;
-            background: #1f6fd6;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-        }
-    </style>
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #1f6fd6;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 150px;
+    }
+
+    .buttons {
+      margin-top: 25px;
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      padding: 10px 18px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .save {
+      background: #1f6fd6;
+      color: #fff;
+    }
+
+    .back {
+      background: #aaa;
+      color: #fff;
+      text-decoration: none;
+      line-height: 36px;
+      padding: 0 16px;
+      border-radius: 4px;
+    }
+  </style>
 </head>
+
 <body>
+<div class="container">
+  <h1>事案 新規作成</h1>
 
-<div class="card">
-    <h1>新規作成</h1>
+  <form method="post">
+    {% csrf_token %}
 
-    <!-- ★ enctype 必須 ★ -->
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+    <label>タイトル</label>
+    {{ form.title }}
 
-        <!-- 事案本体 -->
-        {{ post_form.as_p }}
+    <label>内容</label>
+    {{ form.memo }}
 
-        <!-- 添付ファイル -->
-        <p>
-            {{ file_form.files.label_tag }}<br>
-            {{ file_form.files }}
-        </p>
+    <label>発生日</label>
+    {{ form.incident_date }}
 
-        <button type="submit">保存</button>
-    </form>
+    <div class="buttons">
+      <button type="submit" class="save">保存</button>
+      <a href="{% url 'case:home' %}" class="back">戻る</a>
+    </div>
+  </form>
 </div>
-
 </body>
 </html>

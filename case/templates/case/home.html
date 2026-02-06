@@ -1,199 +1,205 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>事案管理ダッシュボード</title>
+  <meta charset="UTF-8">
+  <title>事案一覧</title>
 
-    <style>
-        body {
-            font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
-            background: #f4f8fb;
-            padding: 20px;
-            color: #333;
-        }
+  <style>
+    body {
+      font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif;
+      background: #f4f8fb;
+      padding: 20px;
+    }
 
-        h1 {
-            color: #1f6fd6;
-            margin-bottom: 10px;
-        }
+    h1, h2, h3 {
+      margin-top: 0;
+    }
 
-        /* 新規作成ボタン */
-        .create-btn {
-            display: inline-block;
-            padding: 10px 16px;
-            background: #1f6fd6;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+    /* ===== 上部 ===== */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-        .create-btn:hover {
-            background: #155bb5;
-        }
+    .create-btn {
+      background: #2e8b57;
+      color: #fff;
+      padding: 8px 14px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+    }
 
-        .card {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-        }
+    /* ===== ベスト5 ===== */
+    .best5-box {
+      background: #eef3ff;
+      border: 1px solid #c9d6ff;
+      padding: 12px 16px;
+      margin-bottom: 25px;
+      border-radius: 6px;
+    }
 
-        h2 {
-            margin-top: 0;
-            color: #1f6fd6;
-        }
+    .best5-list {
+      margin: 0;
+      padding-left: 20px;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+    /* ===== 一覧テーブル ===== */
+    .case-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      background: #fff;
+    }
 
-        th {
-            background: #1f6fd6;
-            color: white;
-            padding: 8px;
-            text-align: left;
-        }
+    .case-table th,
+    .case-table td {
+      border: 1px solid #999;
+      padding: 6px 8px;
+      vertical-align: middle;
+    }
 
-        td {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-        }
+    .case-table th {
+      background: #f0f4ff;
+      text-align: center;
+    }
 
-        tr:nth-child(even) {
-            background: #f2f6fb;
-        }
+    .date-col {
+      width: 120px;
+      text-align: center;
+    }
 
-        /* 開閉トグル */
-        .toggle-title {
-            cursor: pointer;
-            font-weight: bold;
-            color: #1f6fd6;
-            user-select: none;
-        }
+    .action-col {
+      width: 110px;
+      text-align: center;
+    }
 
-        .toggle-title::before {
-            content: "▶ ";
-        }
+    .missing {
+      color: red;
+      font-weight: bold;
+    }
 
-        .toggle-title.open::before {
-            content: "▼ ";
-        }
+    /* ===== ページネーション ===== */
+    .pagination {
+      margin-top: 20px;
+      text-align: center;
+    }
 
-        .toggle-content {
-            display: none;
-            margin-top: 15px;
-        }
-
-        /* ページネーション */
-        .pagination {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .pagination a {
-            margin: 0 6px;
-            text-decoration: none;
-            color: #1f6fd6;
-            font-weight: bold;
-        }
-
-        .pagination span {
-            margin: 0 6px;
-            color: #555;
-        }
-    </style>
+    .pagination a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #1f6fd6;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>事案管理ダッシュボード</h1>
+<h1>事案一覧</h1>
 
-<!-- ★ 新規作成ボタン ★ -->
-<a href="{% url 'case:post_create' %}" class="create-btn">
-    ＋ 新規作成
-</a>
-
-<!-- =====================
-     店舗別ベスト5
-===================== -->
-<div class="card">
-    <h2>店舗別ベスト5</h2>
-
-    <table>
-        <tr>
-            <th>順位</th>
-            <th>店舗名</th>
-            <th>件数</th>
-        </tr>
-
-        {% if store_best %}
-            {% for store, count in store_best %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ store }}</td>
-                <td>{{ count }}</td>
-            </tr>
-            {% endfor %}
-        {% else %}
-            <tr>
-                <td colspan="3">データがありません</td>
-            </tr>
-        {% endif %}
-    </table>
+<div class="top-bar">
+  <div></div>
+  <a href="{% url 'case:post_create' %}" class="create-btn">＋ 新規作成</a>
 </div>
 
-<!-- =====================
-     事案一覧（クリックで開閉）
-===================== -->
-<div class="card">
-    <div class="toggle-title" onclick="toggleList(this)">
-        事案一覧（クリックで開閉）
-    </div>
+<hr>
 
-    <div class="toggle-content">
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>タイトル</th>
-                <th>内容</th>
-            </tr>
+<
+<!-- ===== ベスト5 ===== -->
+<hr>
 
-            {% for post in page_obj %}
-            <tr>
-                <td>{{ post.id }}</td>
-                <td>{{ post.title }}</td>
-                <td>{{ post.memo }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+<hr>
 
-        <div class="pagination">
-            {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}">« 前</a>
-            {% endif %}
+<h2>ベスト5（店舗別）</h2>
 
-            <span>{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+{% if best5 %}
+  <ul>
+    {% for store, count in best5 %}
+      <li>
+        {{ forloop.counter }}位：
+        {{ store }}（{{ count }}件）
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>ベスト5はありません</p>
+{% endif %}
 
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">次 »</a>
-            {% endif %}
-        </div>
-    </div>
+
+<!-- ===== 一覧 ===== -->
+<table class="case-table">
+  <thead>
+    <tr>
+      <th class="date-col">発生日</th>
+      <th>タイトル</th>
+      <th class="action-col">操作</th>
+    </tr>
+  </thead>
+  <!-- 検索フォーム -->
+<form method="get" class="search-form" style="margin: 15px 0;">
+  <input
+    type="text"
+    name="q"
+    placeholder="店舗名・内容で検索"
+    value="{{ request.GET.q }}"
+    style="width: 260px; padding: 6px;"
+  >
+  <button type="submit">検索</button>
+
+  {% if request.GET.q %}
+    <a href="{% url 'case:home' %}" style="margin-left:10px;">
+      クリア
+    </a>
+  {% endif %}
+</form>
+
+
+  <tbody>
+    {% for post in page_obj %}
+      <tr>
+        <td>
+          {% if post.incident_date %}
+            {{ post.incident_date|date:"Y-m-d" }}
+          {% else %}
+            <span class="missing">未入力</span>
+          {% endif %}
+        </td>
+
+        <td>{{ post.title }}</td>
+
+        <td>
+          <a href="{% url 'case:post_edit' post.id %}">編集</a>
+          |
+          <a href="{% url 'case:post_delete' post.id %}"
+          onclick="return confirm('本当に削除しますか？');">
+            削除
+          </a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3">事案はありません</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- ===== ページネーション ===== -->
+<div class="pagination">
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+  {% endif %}
+
+  <span>
+    {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+  </span>
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+  {% endif %}
 </div>
-
-<script>
-function toggleList(el) {
-    el.classList.toggle("open");
-    const content = el.nextElementSibling;
-    content.style.display =
-        (content.style.display === "none" || content.style.display === "")
-        ? "block"
-        : "none";
-}
-</script>
 
 </body>
 </html>

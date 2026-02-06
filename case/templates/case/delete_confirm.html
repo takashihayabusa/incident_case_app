@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>削除確認</h2>
+
+<p>以下の事案を削除します。本当によろしいですか？</p>
+
+<ul>
+<li><strong>タイトル：</strong>{{ post.title }}</li>
+<li><strong>作成日：</strong>{{ post.created_at|date:"Y-m-d" }}</li>
+</ul>
+
+<form method="post">
+{% csrf_token %}
+<button type="submit" class="delete-btn">
+    削除する
+</button>
+<a href="{% url 'case:home' %}">キャンセル</a>
+</form>
+
+{% endblock %}
+
