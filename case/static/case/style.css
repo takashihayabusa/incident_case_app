@@ -1,0 +1,282 @@
+/* ===== 全体 ===== */
+body {
+    font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+    background: #f4f8fb;
+    padding: 20px;
+}
+
+h1 {
+    color: #1f6fd6;
+}
+
+h2 {
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+/* ===== 検索 ===== */
+.search-box {
+    margin-bottom: 15px;
+}
+.search-box input {
+    width: 280px;
+    padding: 6px;
+}
+.search-box button {
+    padding: 6px 12px;
+}
+.clear-link {
+    margin-left: 10px;
+}
+
+/* ===== ベスト5 ===== */
+.best5-box {
+    background: #ffffff;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+.best5-box ol {
+    margin: 0;
+    padding-left: 20px;
+}
+
+/* ===== テーブル ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    vertical-align: top;
+}
+th {
+    background: #eaf1fb;
+}
+tr:hover {
+    background: #f9fbff;
+}
+
+/* ===== 操作列 ===== */
+.actions {
+    white-space: nowrap;
+}
+.inline-form {
+    display: inline;
+}
+
+/* ===== ボタン ===== */
+.btn-edit {
+    display: inline-block;
+    padding: 4px 10px;
+    margin-right: 6px;
+    background: #1f6fd6;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 13px;
+}
+.btn-edit:hover {
+    background: #1558b0;
+}
+
+.btn-delete {
+    padding: 4px 10px;
+    background: #d9534f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+}
+.btn-delete:hover {
+    background: #b52b27;
+}
+
+/* ===== ページネーション ===== */
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+.pagination a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #1f6fd6;
+    font-weight: bold;
+}
+/* ===== 共通 ===== */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont;
+    background: #f4f8fb;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #1f6fd6;
+    margin-bottom: 20px;
+}
+
+/* ===== 事案カード ===== */
+.case-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.case-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    cursor: pointer;
+}
+/* ===== 編集・削除ボタン ===== */
+
+.case-actions {
+    display: none;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.case-card:hover .case-actions {
+    display: flex;
+}
+
+.btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.btn.edit {
+    background: #1f6fd6;
+}
+
+.btn.delete {
+    background: #d9534f;
+}
+/* ===== 一覧 行レイアウト ===== */
+
+.case-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 140px;
+    gap: 12px;
+    align-items: center;
+
+    background: #fff;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.06);
+}
+
+/* 店舗名 */
+.col.store {
+    font-weight: bold;
+    color: #1f6fd6;
+    white-space: nowrap;
+}
+
+/* memo */
+.col.memo {
+    color: #333;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* 編集・削除（右端） */
+.col.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.btn.edit {
+    background: #1f6fd6;
+}
+
+.btn.delete {
+    background: #d9534f;
+}
+/* ===== 一覧 行レイアウト ===== */
+
+.case-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 140px;
+    gap: 12px;
+    align-items: center;
+
+    background: #fff;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.06);
+}
+
+/* 店舗名 */
+.col.store {
+    font-weight: bold;
+    color: #1f6fd6;
+    white-space: nowrap;
+}
+
+/* memo */
+.col.memo {
+    color: #333;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* 編集・削除（右端） */
+.col.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.btn.edit {
+    background: #1f6fd6;
+}
+
+.btn.delete {
+    background: #d9534f;
+}
+/* ===== ベスト5 切替ボタン ===== */
+
+.best5-toggle-btn {
+    margin: 20px 0;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    background: #1f6fd6;
+    color: #fff;
+    cursor: pointer;
+}
+
+.best5-toggle-btn:hover {
+    opacity: 0.9;
+}
+
+

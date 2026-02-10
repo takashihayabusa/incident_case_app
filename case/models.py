@@ -1,33 +1,29 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Post(models.Model):
-    PRIORITY_CHOICES = (
-        (1, "低"),
-        (2, "中"),
-        (3, "高"),
+    created_at = models.DateField(
+        verbose_name="記入日",
+        default=timezone.now
+    )
+    store_name = models.CharField(
+        "店舗名",
+        max_length=100
+    )
+    title = models.CharField(
+        "タイトル",
+        max_length=200
+    )
+    memo = models.TextField(
+        "内容",
+        blank=True
+    )
+    file = models.FileField(
+        upload_to="uploads/",
+        blank=True,
+        null=True
     )
 
-    title = models.CharField(max_length=200)
-    memo = models.TextField()
-
-    created_at = models.DateTimeField(auto_now_add=True)  # システム用
-    incident_date = models.DateField("発生日", null=True, blank=True)
-
     def __str__(self):
-        return self.title
-
-    def __str__(self):
-        return self.title
-
-
-class PostFile(models.Model):
-    post = models.ForeignKey(
-        Post,
-        related_name="files",
-        on_delete=models.CASCADE
-    )
-    file = models.FileField(upload_to="uploads/")
-
-    def __str__(self):
-        return f"{self.post.title} - {self.file.name}"
+        return f"{self.store_name}｜{self.title}"

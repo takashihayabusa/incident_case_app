@@ -1,22 +1,74 @@
-{% extends "base.html" %}
-{% block content %}
 
-<h2>削除確認</h2>
 
-<p>以下の事案を削除します。本当によろしいですか？</p>
+<!DOCTYPE html>
+<html lang="ja">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>削除確認</title>
+    <style>
+        body {
+            font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+            background: #f4f8fb;
+            padding: 20px;
+        }
 
-<ul>
-<li><strong>タイトル：</strong>{{ post.title }}</li>
-<li><strong>作成日：</strong>{{ post.created_at|date:"Y-m-d" }}</li>
-</ul>
+        h1 {
+            color: #d9534f;
+        }
 
-<form method="post">
-{% csrf_token %}
-<button type="submit" class="delete-btn">
-    削除する
-</button>
-<a href="{% url 'case:home' %}">キャンセル</a>
-</form>
+        .box {
+            background: #ffffff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            max-width: 600px;
+        }
 
-{% endblock %}
+        .actions {
+            margin-top: 20px;
+        }
 
+        .btn-delete {
+            padding: 8px 16px;
+            background: #d9534f;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .btn-delete:hover {
+            background: #b52b27;
+        }
+
+        .btn-cancel {
+            color: #1f6fd6;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>削除確認</h1>
+
+<div class="box">
+    <p>
+        以下の事案を <strong>削除</strong> します。<br>
+        本当によろしいですか？
+    </p>
+
+    <p>
+        <strong>{{ post.store_name }}</strong><br>
+        {{ post.title }}
+    </p>
+
+    <form method="post" class="actions">
+        {% csrf_token %}
+        <button type="submit" class="btn-delete">削除する</button>
+        <a href="{% url 'home' %}" class="btn-cancel">キャンセル</a>
+    </form>
+</div>
+
+</body>
+</html>
